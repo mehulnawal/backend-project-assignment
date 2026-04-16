@@ -6,8 +6,8 @@ export const taskValidator = z.object({
         string()
         .trim()
         .min(3, "Title must be at least 3 characters long")
-        .refine(val => /^[a-zA-Z- ]+$/.test(val), {
-            message: "Title can only contain letters, hyphens, and spaces"
+        .refine(val => /^[a-zA-Z0-9- ]+$/.test(val), {
+            message: "Title can only contain letters, numbers, hyphens, and spaces"
         }),
 
     description: z.
