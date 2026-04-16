@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:9000/api/v1'
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:9000/api/v1',
+    baseURL: BASE_URL,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
@@ -17,7 +19,7 @@ api.interceptors.response.use(
             originalRequest._retry = true
 
             try {
-                await axios.get('http://localhost:9000/api/v1/auth/resetTokens', {
+                await axios.get(`${BASE_URL}/auth/resetTokens`, {
                     withCredentials: true,
                 })
                 return api(originalRequest)
