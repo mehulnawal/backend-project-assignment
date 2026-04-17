@@ -34,7 +34,6 @@ function TaskForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         if (!form.title.trim() || !form.description.trim()) {
             toast.error('Both fields are required')
             return
@@ -65,104 +64,107 @@ function TaskForm() {
             }
             navigate('/dashboard')
         } catch (err) {
-            const msg = err.response?.data?.message || 'Something went wrong'
-            toast.error(msg)
+            toast.error(err.response?.data?.message || 'Something went wrong')
         } finally {
             setLoading(false)
         }
     }
 
     return (
-        <div className="min-h-screen bg-zinc-50">
+        <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
 
-            <header className="bg-white border-b border-zinc-100">
-                <div className="max-w-5xl mx-auto px-6 py-4 flex items-center gap-4">
-                    <button
-                        onClick={() => navigate('/dashboard')}
-                        className="flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-900 transition-colors"
-                    >
-                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
-                                d="M19 12H5M12 19l-7-7 7-7" />
-                        </svg>
-                        Back
-                    </button>
-                    <div className="w-px h-4 bg-zinc-200" />
-                    <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-zinc-900 rounded-md flex items-center justify-center">
-                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24">
-                                <path stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                                    d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+            <header className="topbar">
+                <div className="topbar-inner">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                        <button className="btn btn-ghost btn-sm" onClick={() => navigate('/dashboard')}>
+                            <svg width="15" height="15" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+                                    d="M19 12H5M12 19l-7-7 7-7" />
                             </svg>
+                            Back
+                        </button>
+                        <div style={{ width: '1px', height: '20px', background: 'var(--border)' }} />
+                        <div className="logo">
+                            <div className="logo-icon">
+                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                        d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+                                </svg>
+                            </div>
+                            TaskFlow
                         </div>
-                        <span className="font-bold text-zinc-900">TaskFlow</span>
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-xl mx-auto px-6 py-12">
-                <div className="mb-8">
-                    <h1 className="text-2xl font-bold text-zinc-900">
+            <div style={{ maxWidth: '560px', margin: '0 auto', padding: '48px 24px' }}>
+
+                <div style={{ marginBottom: '28px' }}>
+                    <h1 style={{ fontSize: '1.4rem', marginBottom: '6px' }}>
                         {isEdit ? 'Edit Task' : 'Create Task'}
                     </h1>
-                    <p className="text-zinc-400 text-sm mt-1">
-                        {isEdit ? 'Update your task details below' : 'Fill in the details to create a new task'}
+                    <p style={{ fontSize: '0.875rem', color: 'var(--text-3)' }}>
+                        {isEdit ? 'Update the details of your task' : 'Add a new task to your list'}
                     </p>
                 </div>
 
-                <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm p-8">
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                        <div>
-                            <label className="block text-sm font-medium text-zinc-700 mb-1.5">
-                                Title
-                            </label>
+                <div className="card fade-up" style={{ padding: '28px' }}>
+                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+                        <div className="field">
+                            <label>Title</label>
                             <input
+                                className="input"
                                 type="text"
                                 name="title"
                                 value={form.title}
                                 onChange={handleChange}
                                 placeholder="e.g. Fix login bug"
-                                className="w-full px-4 py-2.5 border border-zinc-200 rounded-xl text-sm bg-zinc-50 focus:bg-white focus:border-zinc-400 transition-all"
                             />
-                            <p className="text-xs text-zinc-400 mt-1.5">Only letters, hyphens and spaces allowed</p>
+                            <span className="hint">Letters, hyphens, and spaces only</span>
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-zinc-700 mb-1.5">
-                                Description
-                            </label>
+                        <div className="field">
+                            <label>Description</label>
                             <textarea
+                                className="input"
                                 name="description"
                                 value={form.description}
                                 onChange={handleChange}
                                 placeholder="Describe the task in detail..."
                                 rows={5}
-                                className="w-full px-4 py-2.5 border border-zinc-200 rounded-xl text-sm bg-zinc-50 focus:bg-white focus:border-zinc-400 transition-all resize-none"
                             />
                         </div>
 
-                        <div className="flex gap-3 pt-2">
+                        <div style={{ display: 'flex', gap: '10px', paddingTop: '4px' }}>
                             <button
                                 type="button"
+                                className="btn btn-outline"
+                                style={{ flex: 1 }}
                                 onClick={() => navigate('/dashboard')}
-                                className="flex-1 py-2.5 border border-zinc-200 rounded-xl text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
+                                className="btn btn-primary"
+                                style={{ flex: 1 }}
                                 disabled={loading}
-                                className="flex-1 bg-zinc-900 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                {loading
-                                    ? isEdit ? 'Updating...' : 'Creating...'
-                                    : isEdit ? 'Update Task' : 'Create Task'
-                                }
+                                {loading ? (
+                                    <>
+                                        <svg style={{ animation: 'spin 0.8s linear infinite' }} width="14" height="14" fill="none" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="32" strokeDashoffset="10" />
+                                        </svg>
+                                        {isEdit ? 'Updating...' : 'Creating...'}
+                                    </>
+                                ) : isEdit ? 'Update Task' : 'Create Task'}
                             </button>
                         </div>
+
                     </form>
                 </div>
-            </main>
+            </div>
         </div>
     )
 }

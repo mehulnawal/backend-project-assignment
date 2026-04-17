@@ -109,7 +109,6 @@ export const googleLoginUser = async (req, res, next) => {
                 name,
                 email,
                 googleId,
-                password: null,
                 lastLogin: "google"
             });
         } else {

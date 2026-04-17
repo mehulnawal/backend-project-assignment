@@ -22,7 +22,6 @@ const authSchema = new mongoose.Schema(
 
         password: {
             type: String,
-            required: [true, "User password is required"],
             select: false
         },
 
@@ -44,7 +43,6 @@ const authSchema = new mongoose.Schema(
 
         googleId: {
             type: String,
-            required: null
         },
 
         lastLogin: {
@@ -85,10 +83,10 @@ authSchema.methods.refreshToken = function () {
 }
 
 authSchema.pre('save', async function () {
-    if (!this.isModified("password")) return;
+    if (!this.password || !this.isModified("password")) return;
 
     this.password = await bcrypt.hash(this.password, 10);
     return;
 })
 
-export const User = mongoose.model("User", authSchema);
+export const User = mongoose.models.User || mongoose.model("User", authSchema);

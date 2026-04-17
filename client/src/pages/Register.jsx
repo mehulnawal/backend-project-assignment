@@ -24,83 +24,92 @@ function Register() {
             toast.success('Account created! Please log in.')
             navigate('/login')
         } catch (err) {
-            const msg = err.response?.data?.message || 'Registration failed'
-            toast.error(msg)
+            toast.error(err.response?.data?.message || 'Registration failed')
         } finally {
             setLoading(false)
         }
     }
 
     return (
-        <div className="min-h-screen bg-zinc-50 flex items-center justify-center px-4">
-            <div className="w-full max-w-md">
+        <div className="auth-page">
+            <div className="auth-container">
 
-                <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-zinc-900 rounded-xl mb-4">
+                <div className="auth-header">
+                    <div className="auth-logo">
                         <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
-                            <path stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+                            <path stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                                 d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
                         </svg>
                     </div>
-                    <h1 className="text-2xl font-bold text-zinc-900">TaskFlow</h1>
-                    <p className="text-zinc-500 text-sm mt-1">Create your account</p>
+                    <h1 style={{ fontSize: '1.5rem', marginBottom: '6px' }}>Create account</h1>
+                    <p style={{ color: 'var(--text-3)', fontSize: '0.875rem' }}>Get started with TaskFlow</p>
                 </div>
 
-                <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm p-8">
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-zinc-700 mb-1.5">Full Name</label>
+                <div className="auth-card fade-up">
+                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+                        <div className="field">
+                            <label>Full name</label>
                             <input
+                                className="input"
                                 type="text"
                                 name="name"
                                 value={form.name}
                                 onChange={handleChange}
                                 placeholder="John Doe"
-                                className="w-full px-4 py-2.5 border border-zinc-200 rounded-xl text-sm bg-zinc-50 focus:bg-white focus:border-zinc-400 transition-all"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-zinc-700 mb-1.5">Email</label>
+                        <div className="field">
+                            <label>Email address</label>
                             <input
+                                className="input"
                                 type="email"
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
                                 placeholder="you@example.com"
-                                className="w-full px-4 py-2.5 border border-zinc-200 rounded-xl text-sm bg-zinc-50 focus:bg-white focus:border-zinc-400 transition-all"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-zinc-700 mb-1.5">Password</label>
+                        <div className="field">
+                            <label>Password</label>
                             <input
+                                className="input"
                                 type="password"
                                 name="password"
                                 value={form.password}
                                 onChange={handleChange}
-                                placeholder="Min 6 chars, 1 upper, 1 number"
-                                className="w-full px-4 py-2.5 border border-zinc-200 rounded-xl text-sm bg-zinc-50 focus:bg-white focus:border-zinc-400 transition-all"
+                                placeholder="Min 6 chars, 1 uppercase, 1 number"
                             />
-                            <p className="text-xs text-zinc-400 mt-1.5">Must include uppercase, lowercase and a number</p>
+                            <span className="hint">Must include uppercase, lowercase, and a number</span>
                         </div>
 
                         <button
                             type="submit"
+                            className="btn btn-primary btn-full"
                             disabled={loading}
-                            className="w-full bg-zinc-900 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+                            style={{ marginTop: '4px' }}
                         >
-                            {loading ? 'Creating account...' : 'Create account'}
+                            {loading ? (
+                                <>
+                                    <svg className="spin" width="14" height="14" fill="none" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="32" strokeDashoffset="10" />
+                                    </svg>
+                                    Creating account...
+                                </>
+                            ) : 'Create account'}
                         </button>
                     </form>
 
-                    <p className="text-center text-sm text-zinc-500 mt-6">
+                    <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-3)', marginTop: '24px' }}>
                         Already have an account?{' '}
-                        <Link to="/login" className="text-zinc-900 font-medium hover:underline">
+                        <Link to="/login" style={{ color: 'var(--text-1)', fontWeight: 600 }}>
                             Sign in
                         </Link>
                     </p>
                 </div>
+
             </div>
         </div>
     )

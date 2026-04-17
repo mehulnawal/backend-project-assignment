@@ -6,26 +6,42 @@ function TaskCard({ task, onEdit, onDelete, deleting }) {
     })
 
     return (
-        <div className="bg-white rounded-2xl border border-zinc-100 p-5 flex flex-col gap-3 hover:shadow-md transition-shadow group">
-            <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-zinc-900 text-sm leading-snug capitalize line-clamp-2 flex-1">
+        <div className="task-card fade-up">
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' }}>
+                <h3 style={{
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                    color: 'var(--text-1)',
+                    lineHeight: '1.4',
+                    textTransform: 'capitalize',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    flex: 1,
+                }}>
                     {task.title}
                 </h3>
-                <span className="shrink-0 w-2 h-2 rounded-full bg-emerald-400 mt-1" />
+                <span className="dot" style={{ marginTop: '5px' }} />
             </div>
 
-            <p className="text-zinc-500 text-sm leading-relaxed line-clamp-3">
+            <p style={{
+                fontSize: '0.85rem',
+                color: 'var(--text-2)',
+                lineHeight: '1.6',
+                display: '-webkit-box',
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+            }}>
                 {task.description}
             </p>
 
-            <div className="flex items-center justify-between mt-auto pt-3 border-t border-zinc-50">
-                <span className="text-xs text-zinc-400">{date}</span>
+            <div className="task-card-footer">
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-3)' }}>{date}</span>
 
-                <div className="flex items-center gap-1">
-                    <button
-                        onClick={onEdit}
-                        className="flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-900 px-2.5 py-1.5 rounded-lg hover:bg-zinc-100 transition-all"
-                    >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <button className="btn btn-ghost btn-sm" onClick={onEdit}>
                         <svg width="13" height="13" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
                                 d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
@@ -34,22 +50,26 @@ function TaskCard({ task, onEdit, onDelete, deleting }) {
                     </button>
 
                     <button
+                        className="btn btn-danger-ghost btn-sm"
                         onClick={onDelete}
                         disabled={deleting}
-                        className="flex items-center gap-1.5 text-xs text-zinc-500 hover:text-red-600 px-2.5 py-1.5 rounded-lg hover:bg-red-50 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                         {deleting ? (
-                            <svg className="animate-spin" width="13" height="13" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-                            </svg>
+                            <>
+                                <svg style={{ animation: 'spin 0.8s linear infinite' }} width="13" height="13" fill="none" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="32" strokeDashoffset="10" />
+                                </svg>
+                                Deleting...
+                            </>
                         ) : (
-                            <svg width="13" height="13" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
-                                    d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" />
-                            </svg>
+                            <>
+                                <svg width="13" height="13" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+                                        d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" />
+                                </svg>
+                                Delete
+                            </>
                         )}
-                        {deleting ? 'Deleting...' : 'Delete'}
                     </button>
                 </div>
             </div>
