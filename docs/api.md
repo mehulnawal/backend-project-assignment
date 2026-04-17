@@ -8,8 +8,8 @@ POST /api/v1/auth/register
 
 ```json
 {
-  "name": "Ishu",
-  "email": "ishu@gmail.com",
+  "name": "Mehul",
+  "email": "mehul2904@gmail.com",
   "password": "123456"
 }
 ```
