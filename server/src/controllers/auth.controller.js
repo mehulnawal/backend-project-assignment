@@ -34,7 +34,8 @@ export const registerUser = async (req, res, next) => {
 
         const cookieOptions = {
             httpOnly: true,
-            secure: process.env.NODE_ENV == 'production'
+            secure: process.env.NODE_ENV == 'production',
+            sameSite: "None",
         }
 
         res.cookie("accessToken", accessToken, cookieOptions);
@@ -71,7 +72,8 @@ export const emailLoginUser = async (req, res, next) => {
 
         const cookieOptions = {
             httpOnly: true,
-            secure: process.env.NODE_ENV == 'production'
+            secure: process.env.NODE_ENV == 'production',
+            sameSite: "None",
         }
 
         res.cookie("accessToken", accessToken, cookieOptions);
@@ -121,7 +123,8 @@ export const googleLoginUser = async (req, res, next) => {
 
         const cookieOptions = {
             httpOnly: true,
-            secure: process.env.NODE_ENV == 'production'
+            secure: process.env.NODE_ENV == 'production',
+            sameSite: "None",
         }
 
         res.cookie("accessToken", accessToken, cookieOptions);
@@ -153,7 +156,8 @@ export const resetRefreshToken = async (req, res, next) => {
 
         const cookieOptions = {
             httpOnly: true,
-            secure: process.env.NODE_ENV == 'production'
+            secure: process.env.NODE_ENV == 'production',
+            sameSite: "None",
         }
 
         res.cookie("accessToken", accessToken, cookieOptions);
